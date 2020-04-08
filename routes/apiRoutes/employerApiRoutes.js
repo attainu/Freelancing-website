@@ -6,28 +6,28 @@ const { createJob, viewAllJobs, viewJob, updateJob, deleteJob, checkout, createR
 const router = Router()
 
 router.post(
-    '/postJob',
+    '/job/create',
     passport.authenticate('employer-jwt', { session: false }),            
     upload.single('projectFile'), 
     createJob)
 
 router.get(
-    '/viewJobs',
+    '/job/viewAll',
     viewAllJobs)
 
 router.get(
-    '/viewJob/:jobId',
+    '/job/view/:jobId',
     viewJob
 )
 
 router.patch(
-    '/updateJob/:jobId',
+    '/job/update/:jobId',
     passport.authenticate('employer-jwt', { session: false }),
     updateJob
 )
 
 router.delete(
-    '/deleteJob/:jobId',
+    '/job/delete/:jobId',
     passport.authenticate('employer-jwt', { session: false }),
     deleteJob
 )

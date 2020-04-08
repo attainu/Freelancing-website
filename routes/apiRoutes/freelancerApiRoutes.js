@@ -6,28 +6,28 @@ const { addDetails, viewAllFreelancers, viewProfile, updateProfile, deleteProfil
 const router = Router()
 
 router.post(
-    '/addDetails',
+    '/profile/add',
     passport.authenticate('freelancer-jwt', { session: false }),            
     upload.single('profileImage'), 
     addDetails)
 
 router.get(
-    '/viewFreelancers',
+    '/profile/viewAll',
     viewAllFreelancers)
 
 router.get(
-    '/viewProfile/:freelancerid',
+    '/profile/view/:freelancerid',
     viewProfile
 )
 
 router.patch(
-    '/updateProfile/:freelancerid',
+    '/profile/update/:freelancerid',
     passport.authenticate('freelancer-jwt', { session: false }),
     updateProfile
 )
 
 router.delete(
-    '/deleteProfile/:freelancerid',
+    '/profile/delete/:freelancerid',
     passport.authenticate('freelancer-jwt', { session: false }),
     deleteProfile
 )
