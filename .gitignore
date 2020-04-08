@@ -38,6 +38,7 @@ bower_components
 build/Release
 
 # Dependency directories
+tests/
 node_modules/
 jspm_packages/
 package-lock.json

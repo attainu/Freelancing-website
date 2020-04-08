@@ -1,14 +1,14 @@
+const { validationResult } = require('express-validator')
 const Freelancer = require('../../models/Freelancer')
 
 module.exports = {
   async register(req, res) {
     try {
-      const { email, name, password } = req.body
-      if (!email || !name || !password) {
-        return res
-          .status(400)
-          .send({ statusCode: 400, message: 'Bad request' })
+      const errors = validationResult(req)
+      if (!errors.isEmpty()) {
+        return res.status(422).json({ message: errors.array() })
       }
+      const { email, name, password } = req.body
       const freelancer = await Freelancer.create({
         email,
         name,
@@ -31,6 +31,10 @@ module.exports = {
   async login(req, res) {
     const freelancer = req.user
     const accessToken = await freelancer.generateToken()
+    await freelancer.save({
+      accessToken: accessToken
+    })
+    
     res.json({
       statusCode: 200,
       freelancer,

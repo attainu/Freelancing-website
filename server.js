@@ -8,6 +8,7 @@ const freelancerNormalRoutes = require('./routes/normalRoutes/freelancerNormalRo
 const employerNormalRoutes = require('./routes/normalRoutes/employerNormalRoutes')
 const freelancerApiRoutes = require('./routes/apiRoutes/freelancerApiRoutes')
 const employerApiRoutes = require('./routes/apiRoutes/employerApiRoutes')
+const customerSupportRoutes = require('./routes/apiRoutes/customerSupportRoutes')
 
 const app = express()
 
@@ -18,7 +19,8 @@ app.use(freelancerNormalRoutes)
 app.use(employerNormalRoutes)
 app.use(freelancerApiRoutes)
 app.use(employerApiRoutes)
+app.use(customerSupportRoutes)
 
-app.listen(3000, function() {
+app.listen(process.env.PORT || 3000, function() {
   console.log('Server started')
 })

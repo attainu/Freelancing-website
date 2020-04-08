@@ -1,10 +1,15 @@
 const { Router } = require('express')
 const passport = require('passport')
+const { check } = require('express-validator')
 const { register, login, updateAccount, deleteAccount } = require('../../controllers/normalControllers/employerNormalControllers')
 
 const router = Router()
 
-router.post('/employer/register', register)
+router.post('/employer/register',[
+  check('name', 'Please enter a UserName').notEmpty(),
+  check('email', 'Invalid Email').notEmpty().isEmail(),
+  check('password', 'Password is too short').notEmpty().isLength({ min: 5})
+], register)
 
 router.post(
   '/employer/login',

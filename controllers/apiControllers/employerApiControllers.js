@@ -1,5 +1,6 @@
 const job = require('../../models/EmployerJob')
 const Order = require('../../models/Order')
+const freelancerProfile = require('../../models/FreelancerProfile')
 
 module.exports = {
     async createJob(req, res) {
@@ -174,5 +175,28 @@ module.exports = {
             console.log(err)
             res.status(500).send('Server Error')
         }   
+    },
+
+    async createRating(req, res) {
+        try{
+            const rating = parseInt(req.body.rating)
+            const id = req.params.freelancerid
+            const profile = await freelancerProfile.findById(id)
+            if(!profile){
+                return res.status(404).json({
+                    "message": "Profile Not Found"
+                })
+            }
+            const result = await freelancerProfile.updateOne({_id: id },{ $push: { ratings: rating }})
+            res.status(200).json({
+                "message": "Profile Updated",
+                statusCode: 200,
+                result
+            })
+        }
+        catch(err){
+            console.log(err)
+            res.status(500).send('Server Error')
+        }
     }
 }

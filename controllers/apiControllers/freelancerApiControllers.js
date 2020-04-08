@@ -90,7 +90,7 @@ module.exports = {
 
             results.results = await freelancerProfile
             .find()
-            .select('name services languages location hourlyRate profileImage')
+            .select('name services languages location hourlyRate profileImage ratings')
             .limit(limit)
             .skip(startIndex)
             

@@ -65,6 +65,9 @@ const freelancerProfileSchema = new Schema(
       required: true,
       trim: true
     },
+    ratings: [{
+      type: Number
+    }],
     freelancer: {
       type: Schema.Types.ObjectId,
       ref: 'freelancer'
