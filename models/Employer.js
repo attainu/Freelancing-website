@@ -24,7 +24,11 @@ const employerSchema = new Schema(
     accessToken: {
       type: String,
       trim: true
-    }
+    },
+    jobs: [{
+      type: Schema.Types.ObjectId,
+      ref: 'employerJob'
+    }]
   },
   { timestamps: true }
 )

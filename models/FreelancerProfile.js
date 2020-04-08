@@ -64,6 +64,10 @@ const freelancerProfileSchema = new Schema(
       type: String,
       required: true,
       trim: true
+    },
+    freelancer: {
+      type: Schema.Types.ObjectId,
+      ref: 'freelancer'
     }
   },
   { timestamps: true }

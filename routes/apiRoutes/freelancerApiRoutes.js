@@ -1,7 +1,7 @@
 const { Router } = require('express')
 const passport = require('passport')
 const upload = require('../../multer')
-const { addDetails, viewAllFreelancers, viewProfile, deleteProfile } = require('../../controllers/apiControllers/freelancerProfileControllers')
+const { addDetails, viewAllFreelancers, viewProfile, updateProfile, deleteProfile, checkout } = require('../../controllers/apiControllers/freelancerApiControllers')
 
 const router = Router()
 
@@ -17,14 +17,25 @@ router.get(
 
 router.get(
     '/viewProfile/:freelancerid',
-    passport.authenticate('employer-jwt', { session: false }),
     viewProfile
+)
+
+router.patch(
+    '/updateProfile/:freelancerid',
+    passport.authenticate('freelancer-jwt', { session: false }),
+    updateProfile
 )
 
 router.delete(
     '/deleteProfile/:freelancerid',
     passport.authenticate('freelancer-jwt', { session: false }),
     deleteProfile
+)
+
+router.post(
+    '/checkout/acceptJob/:employerid',
+    passport.authenticate('freelancer-jwt', { session: false }),
+    checkout
 )
 
 module.exports = router

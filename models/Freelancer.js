@@ -25,6 +25,10 @@ const freelancerSchema = new Schema(
     accessToken: {
       type: String,
       trim: true
+    },
+    profile: {
+      type: Schema.Types.ObjectId,
+      ref: 'freelancerProfile'
     }
   },
   { timestamps: true }

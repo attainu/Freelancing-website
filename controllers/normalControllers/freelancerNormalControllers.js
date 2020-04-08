@@ -38,9 +38,43 @@ module.exports = {
       expiresIn: '12h'
     })
   },
+  
+  async updateAccount(req, res) {
+    try{
+      const updateFields = {}
+      for(const ops of req.body){
+          updateFields[ops.propName] = ops.value
+      }
+      const result = await freelancerProfile.updateOne({_id: req.params.freelancerid}, {$set: updateFields})
+      res.status(200).json({
+          "message": "Account Details Updated",
+          statusCode: 200,
+          result
+      })
+    }
+    catch(err){
+      console.log(err)
+      res.status(500).send('Server Error')
+    }
+  },
 
-   async showFreelancerData(req, res) {
-    res.json({ freelancer: req.user })
+  async deleteAccount(req, res) {
+    try {
+      const account = await freelancer.deleteOne({
+        _id: req.params.freelancerid,
+      })
+      if (!account) {
+        return res.status(404).json({
+          message: 'Account Not Found',
+        })
+      }
+      res.status(200).json({
+        message: 'Account Deleted',
+      })
+    } catch (err) {
+      console.log(err);
+      res.status(500).send('Server Error')
+    }
   }
   
 }

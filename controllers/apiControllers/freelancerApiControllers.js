@@ -1,7 +1,8 @@
 const freelancerProfile = require('../../models/FreelancerProfile')
+const Order = require('../../models/Order')
 
 module.exports = {
-    async addDetails(req, res){
+    async addDetails(req, res) {
         try{
             const { 
                 name,
@@ -39,7 +40,6 @@ module.exports = {
                   message: 'Looks like some fields are incomplete'
                 })
             }
-
             const freelancerDetails = await freelancerProfile.create({
                 name,
                 email,
@@ -54,12 +54,10 @@ module.exports = {
                 hourlyRate,
                 profileImage,
             })  
-
             res.status(201).json({
                 statusCode: 201,
                 freelancerDetails
               })
-
         }
         catch(err){
             console.log(err)
@@ -67,7 +65,7 @@ module.exports = {
         }
     },
 
-    async viewAllFreelancers(req, res){
+    async viewAllFreelancers(req, res) {
         try{
             const limit = parseInt(req.query.limit )
             const page = parseInt(req.query.page) 
@@ -107,7 +105,7 @@ module.exports = {
         }
     },
 
-    async viewProfile(req, res){
+    async viewProfile(req, res) {
         try{
             const profile = await freelancerProfile.findById(req.params.freelancerid)
             if(!profile){
@@ -126,9 +124,28 @@ module.exports = {
         }
     },
 
-    async deleteProfile(req, res){
+    async updateProfile(req, res) {
         try{
-            const profile = await freelancerProfile.remove({_id: req.params.freelancerid})
+            const updateFields = {}
+            for(const ops of req.body){
+                updateFields[ops.propName] = ops.value
+            }
+            const result = await freelancerProfile.updateOne({_id: req.params.freelancerid}, {$set: updateFields})
+            res.status(200).json({
+                "message": "Profile Updated",
+                statusCode: 200,
+                result
+            })
+        }
+        catch(err){
+            console.log(err)
+            res.status(500).send('Server Error')
+        }
+    },
+
+    async deleteProfile(req, res) {
+        try{
+            const profile = await freelancerProfile.deleteOne({_id: req.params.freelancerid})
             if(!profile){
                 return res.status(404).json({
                     "message": "Profile Not Found"
@@ -142,5 +159,29 @@ module.exports = {
             console.log(err)
             res.status(500).send('Server Error')
         }
+    },
+
+    async checkout(req, res) {
+        try{
+            const employer = req.params.employerid
+            const freelancer = req.user._id
+            if(!employer || !freelancer){
+                return res.status(404).json({
+                    'message': 'Invalid Credentials'
+                })
+            }
+            const order = await Order.create({
+                employer,
+                freelancer                
+            })
+            res.status(201).json({
+                statusCode: 201,
+                order
+            })
+        }
+        catch(err){
+            console.log(err)
+            res.status(500).send('Server Error')
+        }   
     }
 }
