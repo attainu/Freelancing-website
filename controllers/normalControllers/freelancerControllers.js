@@ -1,4 +1,4 @@
-const Freelancer = require('../models/Freelancer')
+const Freelancer = require('../../models/Freelancer')
 
 module.exports = {
   async register(req, res) {
@@ -12,8 +12,7 @@ module.exports = {
       const freelancer = await Freelancer.create({
         email,
         name,
-        password,
-        isThirdPartyUser: false
+        password
       })
       const accessToken = await freelancer.generateToken()
       res.status(201).json({

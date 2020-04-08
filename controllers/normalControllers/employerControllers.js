@@ -1,4 +1,4 @@
-const Employer = require('../models/Employer')
+const Employer = require('../../models/Employer')
 
 module.exports = {
   async register(req, res) {
@@ -12,8 +12,7 @@ module.exports = {
       const employer = await Employer.create({
         email,
         name,
-        password,
-        isThirdPartyUser: false
+        password
       })
       const accessToken = await employer.generateToken()
       res.status(201).json({

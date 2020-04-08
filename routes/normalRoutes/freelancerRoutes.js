@@ -1,6 +1,6 @@
 const { Router } = require('express')
 const passport = require('passport')
-const { register, login, showFreelancerData } = require('../controllers/freelancerControllers.js')
+const { register, login, showFreelancerData } = require('../../controllers/normalControllers/freelancerControllers')
 
 const router = Router()
 

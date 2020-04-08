@@ -1,12 +1,12 @@
 const express = require('express')
 const passport = require('passport')
-const dotenv = require('dotenv')
-dotenv.config()
+require('dotenv').config()
 require('./db')
 require('./passport')
 
-const freelancerRoutes = require('./routes/freelancerRoutes')
-const employerRoutes = require('./routes/employerRoutes')
+const freelancerRoutes = require('./routes/normalRoutes/freelancerRoutes')
+const employerRoutes = require('./routes/normalRoutes/employerRoutes')
+const freelancerProfileRoutes = require('./routes/apiRoutes/freelancerProfileRoutes')
 
 const app = express()
 
@@ -15,6 +15,7 @@ app.use(passport.initialize())
 
 app.use(freelancerRoutes)
 app.use(employerRoutes)
+app.use(freelancerProfileRoutes)
 
 app.listen(3000, function() {
   console.log('Server started')

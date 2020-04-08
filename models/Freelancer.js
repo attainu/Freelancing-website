@@ -19,14 +19,8 @@ const freelancerSchema = new Schema(
     },
     password: {
       type: String,
-      required: function() {
-        return !this.isThirdPartyUser
-      },
+      required: true,
       trim: true
-    },
-    isThirdPartyUser: {
-      type: Boolean,
-      required: true
     },
     accessToken: {
       type: String,
