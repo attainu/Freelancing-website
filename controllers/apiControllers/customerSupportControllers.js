@@ -71,6 +71,6 @@ module.exports = {
     },
 
     async homeRoute (req, res) {
-        res.send('Hello Visitor!! We are currently working on a building a client. Kindly visit us in some time to enjoy a wonderful friendly experience! Feel free to explore all our API functionalities!! ')
+        res.send('Hello Visitor!! We are currently working on a building a client. Kindly visit us in some time to enjoy a wonderful friendly experience! Feel free to explore all our API functionalities!! You can visit our documentation on this link: https://docs.google.com/document/d/1NYyVtFxSs0nSKPYOYaE6xY7p16q0WTUOtxihSI-JDpY/edit?usp=sharing')
     }
 }
