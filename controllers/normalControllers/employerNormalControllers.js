@@ -49,7 +49,7 @@ module.exports = {
       for(const ops of req.body){
           updateFields[ops.propName] = ops.value
       }
-      const result = await employer.updateOne({_id: req.params.employerid}, {$set: updateFields})
+      const result = await Employer.updateOne({_id: req.params.employerid}, {$set: updateFields})
       res.status(200).json({
           "message": "Account Details Updated",
           statusCode: 200,
@@ -64,7 +64,7 @@ module.exports = {
 
   async deleteAccount(req, res) {
     try {
-      const account = await employer.deleteOne({
+      const account = await Employer.deleteOne({
         _id: req.params.employerid,
       })
       if (!account) {

@@ -55,7 +55,7 @@ module.exports = {
                 from: `${email}`,
                 to: process.env.GMAIL_ID,
                 subject: `Re: Ticket Raised on GigsOnTheGo`,
-                text: `We have recieved an issue regarding ${title} on the website from Mr. ${name}. PLease open the application to resolve the issue as soon as possible and also inform the customer regarding the same`
+                text: `We have recieved an issue regarding ${title} on the website from Mr. ${name}. Please open the application to resolve the issue as soon as possible and also inform the customer regarding the same`
             })
 
             res.status(201).json({
